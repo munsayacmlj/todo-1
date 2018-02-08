@@ -9,13 +9,6 @@
 	<title>To do List</title>
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Task List</a>
-    </div>
-  </div>
-</nav>
 	<div class="container">
 		<div class="row">
 		<div class="form-group" style="width: 40%;">

@@ -20,3 +20,10 @@ Route::get('/delete/{id}', 'TasksController@delete');
 Route::get('/edit/{id}', 'TasksController@edit');
 
 Route::post('/edit/{id}', 'TasksController@update');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/task/{id}', 'TasksController@showTask');
+
+Route::post('/comment/{id}', 'CommentController@saveComment');

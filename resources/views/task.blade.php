@@ -9,19 +9,17 @@
 	<title>To do List</title>
 </head>
 <body>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Task List</a>
-    </div>
-  </div>
-</nav>
 	<div class="container">
 		<div class="row">
 		<div class="form-group" style="width: 40%;">
+			<h4>{{ $task->task }}</h4>
 			<form method="POST">
 				{{csrf_field()}}
-				<input type="text" name="task" value="{{$task->task}}" class="form-control">
+				<div class="form-inline">
+					<label>Comment</label>
+					{{-- <input type="text" name="comment" class="form-control"> --}}
+					<textarea name="comment" rows="4" cols="50"></textarea>
+				</div>
 				<input type="submit" name="submit" value="Submit" class="btn btn-success" style="margin-top: 1em;">
 			</form>
 		</div>
