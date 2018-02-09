@@ -27,3 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/task/{id}', 'TasksController@showTask');
 
 Route::post('/comment/{id}', 'CommentController@saveComment');
+
+Route::get('/comment/delete/{id}', 'CommentController@deleteComment');
+
+Route::post('/comment/edit/{id}', 'CommentController@editComment');

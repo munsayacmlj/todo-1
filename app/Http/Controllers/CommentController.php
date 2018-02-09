@@ -15,9 +15,17 @@ class CommentController extends Controller
     	$comments->user_id = Auth::user()->id;
     	$comments->save();
 
-    	// dd($comments->created_at->diffForHumans());
-
     	return response()->json(['time' => $comments->created_at->diffForHumans()]);
-    	// return redirect('/');
+    }
+
+    public function deleteComment($id) {
+        $comment = Comment::find($id)->delete();
+        // return redirect('/');
+    }
+
+    public function editComment(Request $request, $id) {
+        $comment = Comment::find($id);
+        $comment->content = $request->input;
+        $comment->save();
     }
 }

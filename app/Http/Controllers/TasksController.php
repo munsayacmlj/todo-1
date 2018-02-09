@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Comment;
 use Validator;
 use Auth;
 
@@ -29,6 +30,7 @@ class TasksController extends Controller {
 	public function showTasks() {
 		// $tasks = Auth::user()->tasks;
 		$tasks = Task::all();
+		// $tasks = Task::orderBy('created_at', 'desc')->get();
 		return view('index', compact('tasks'));
 	}
 
@@ -37,6 +39,7 @@ class TasksController extends Controller {
 	}
 
 	public function delete($id) {
+		$comment = Comment::where('task_id', $id)->delete();
 		$task = Task::findOrFail($id)->delete();
 		return redirect('/');
 	}
