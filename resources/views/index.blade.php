@@ -77,37 +77,6 @@
 		  </div>
 		</div>
 
-		{{-- <div class="panel panel-default" style="width: 50%; margin: 1em auto;">
-		  <div class="panel-heading">Current Tasks</div>
-		  <div class="panel-body">
-
-		  	<table class="table table-striped">
-			    <thead>
-			      <tr>
-			        <th colspan="3">Task</th>
-			      </tr>
-			    </thead>
-			    <tbody>
-			    	@foreach ($tasks as $task)
-				      <tr>
-					      	<td> 
-					      			{{ $task->task }} by {{$task->user->name}}
-					      	</td>
-					      	<td>
-					      		<a href='{{ url("/edit/$task->id") }}'>
-					      			<button class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button>
-					      		</a>
-					      	</td>
-					      	<td>
-					      		<a href='{{ url("/delete/$task->id") }}'><button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button></a>
-					      	</td>
-				      </tr>
-			      @endforeach
-			    </tbody>
-			 </table>
-		  </div>
-		</div> --}}
-
 		@foreach ($tasks as $task)
 			<div class="panel panel-default" style="width: 50%; margin: 1em auto;">
 				<div class="panel-heading" style="height: 80px;">
@@ -115,11 +84,9 @@
 					@if($task->user->name == Auth::user()->name)
 						<div style="float: right; padding-bottom: 1em;">
 							<a href='{{ url("/edit/$task->id") }}' class="edit_delete_btns">
-				      			{{-- <button class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button> --}}
 				      			Edit
 				      		</a>
 				      		<a href='{{ url("/delete/$task->id") }}' class="edit_delete_btns">
-				      			{{-- <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button> --}}
 				      			Delete
 				      		</a>
 						</div>
@@ -150,14 +117,11 @@
 					</div>
 				</div>
 				<div class="panel-body">
-					{{-- <form action='{{ url("/comment/$task->id") }}' method="POST"> --}}
-						{{-- {{ csrf_field() }} --}}
 						<div class="form-group">
 							<label>Comment</label>
 							<input type="text" name="comment" class="form-control" id="{{ $task->id }}">
 						</div>
 						<button class="btn btn-success submit-comment" data-id="{{ $task->id }}">Submit</button>
-					{{-- </form> --}}
 				</div>
 			</div>
 		@endforeach
@@ -178,8 +142,6 @@
 				},
 				success:function(data) {
 					$('#well_'+taskId).load(' #comment_'+taskId);
-					// $("#well_"+taskId).load(' .comment-box');
-					// $('#well_'+taskId).load(' #well_'+taskId);
 					$('#comment_'+taskId).prepend('<div class="well"><p>' + comment  + '<small> by ' + user +
 					' on ' + data.time + '</small>' +'</p></div>');
 					$('#'+taskId).val("");
@@ -187,7 +149,8 @@
 			});
 		});
 
-		$(".outer-well").on('click', '.delete-comment', function() {
+		$(".outer-well").on('click', '.delete-comment', function(e) {
+					e.preventDefault();
 					var commentId = $(this).data('id');
 					$.ajax({
 						url: '/comment/delete/'+commentId,
@@ -199,7 +162,7 @@
 							$("#comment_"+commentId).remove();
 						}
 					});
-					return false;
+					// return false;
 		});
 	
 		$('.outer-well').on('click', '.edit-comment', function() {
@@ -221,7 +184,6 @@
 						input : input
 					},
 					success:function(data) {
-						// $('#well_'+taskId).load(' #well_'+taskId);
 						$("#p_"+pId).html(input);
 						$('#p_'+pId).show();
 						$('#s_'+pId).show();
@@ -236,8 +198,6 @@
 			$(this).html('Save');
 		});
 
-		// $('.edit-comment').click(function() {
-		// });
 		$('.outer-well').on('click', '.cancel-btn', function() {
 					var pId = $(this).data('id');
 					$('#p_'+pId).show();
@@ -247,8 +207,6 @@
 					$('#bd_'+pId).show();
 					$('#bc_'+pId).hide();
 		});
-		// $('.cancel-btn').click(function() {
-		// });
 	</script>
 </body>
 </html>
